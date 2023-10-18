@@ -12,8 +12,8 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="account.php">user</a></li>
-          <li class="breadcrumb-item active"><?= isset($_GET["user"])? $_GET["user"]:"all users" ?></li>
+          <li class="breadcrumb-item"><a href="section.php">section</a></li>
+          <li class="breadcrumb-item active"><?= isset($_GET["user_section"])? $_GET["user_section"]:"all section" ?></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -24,39 +24,32 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">user</h5>
+              <h5 class="card-title">section list</h5>
               
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
                     <th>id</th>
-                    <th>Name</th>
-                    <th>username</th>
-                    <th>email</th>
-                    <th>user_type</th>
-                    <th>password</th>
+                    <th>section_Name</th>
+                    <th>create_at</th>
+                    <th>update_at</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                    if(isset($_GET["user"])){
-                      $user_type = $_GET["user"];
-                      $users= "select * from user where user_type ='$user_type'";
-                    }else{
-                      $users = "select * from  user";
-                    }
-                      $res = $conn->query($users);
+                    $user_SECTION= "select * from user_section";
+                      $res = $conn->query($user_SECTION);
                       if($res->num_rows >= 1){
                         $sr = 1;
                         while($row = $res->fetch_assoc()){?>
                           <tr>
                             <th><?= $sr++; ?></th>
-                            <td><?= $row["name"];?></td>
-                            <td><?= $row["username"];?></td>
-                            <td><?= $row["email"];?></td>
-                            <td><?= $row["user_Type"];?></td>
-                            <td><?= $row["password"];?></td>
+                            <td><?= $row["section"];?></td>
+                            <td><?= $row["date"];?></td>
+                            <td><?= $row["date"];?></td>
+                            <td></td>
+                            <td></td>
                           </tr>
                         <?php 
                         }
