@@ -6,7 +6,7 @@
 
     try{
         $conn = new mysqli(host , user , password , database);
-            include_once("table.php");
+            
             
         
             // echo"chal rha h";
@@ -14,4 +14,6 @@
             print_r($e->getMessage());
                 die("<br>connection failed");
     }
+
+    include_once("table.php");
 ?>

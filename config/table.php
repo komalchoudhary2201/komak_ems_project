@@ -1,6 +1,6 @@
 <?php
 //FOR USERS============================================================
-    $qry = "create table if not exists user(
+    $user = "create table if not exists user(
             id int primary key auto_increment,
             name varchar(20),
             username varchar(15),
@@ -10,7 +10,7 @@
         )";
 
     // $data ="insert into user(name,username,email,password,user_type) values('rahul','rahul@123','rahul@gmail.com','kuch bhi','admin')";
-        $conn->query($qry); 
+        $conn->query($user); 
     
 //FOR USER-CLASS========================================================== 
     $class_table = "create table if not exists user_class(
@@ -40,12 +40,12 @@ $section_table = "create table if not exists user_section(
 
 $conn->query($section_table);
 
-$data = 'insert into user_section(section) values("section A"),
-    ("section B"),
-    ("section C"),
-    ("section D")
-';
+// $data = 'insert into user_section(section) values("section A"),
+//     ("section B"),
+//     ("section C"),
+//     ("section D")
+// ';
 
-$conn->query($data);
+// $conn->query($data);
 
 ?>

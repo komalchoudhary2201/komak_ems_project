@@ -20,7 +20,7 @@
 
     <section class="section">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
 
           <div class="card">
             <div class="card-body">
@@ -34,6 +34,7 @@
                     <th>section_Name</th>
                     <th>create_at</th>
                     <th>update_at</th>
+                    <th>action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,8 +49,7 @@
                             <td><?= $row["section"];?></td>
                             <td><?= $row["date"];?></td>
                             <td><?= $row["date"];?></td>
-                            <td></td>
-                            <td></td>
+                            <td>edit/del</td>
                           </tr>
                         <?php 
                         }
@@ -62,10 +62,46 @@
 
             </div>
           </div>
+        </div>
+        <div class="col-lg-3">
+          <?php
+            $res = false;
+            if(isset($_POST["add-section"])){
+              $section_name = $_POST["section"];
+             
+              try{
+                $qrys = "insert into user_section('section') values('$section_name')";
+                echo $qrys;
+                $ress = $conn->query($qrys);
+                echo "chal gaya";
+                print_r($ress);
+                echo "Hi";
+               
+              }catch(Exception $e){
+                // $ress = $e->getCode();
+                print_r($e);
+                echo "exception";
+                
+              }
+            }
+          ?>
+            <div class="card-body">
+              <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Add Section</h5>
+                    <form class="row g-3 needs-validation" novalidate method="post">
+                      <div class="col-12  mt-5">
+                          <input type="text" name="section" class="form-control" required>
+                      </div>
+                      <div class="col-12">
+                        <button name="add-section" class="btn btn-sm btn-primary w-100" type="submit">Add</button>
+                      </div>
+                    </form>
 
+              </div>
+            </div>
         </div>
       </div>
-    </section>
+  </section>
 
   </main><!-- End #main -->
 
