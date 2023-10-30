@@ -15,21 +15,21 @@
 //FOR USER-CLASS========================================================== 
     $class_table = "create table if not exists user_class(
         id int primary key auto_increment,
-        class_name varchar(10),
+        class_name varchar(10) unique not null,
         section varchar(10),
         date timestamp default now()
     )";
     $conn->query($class_table);
+    //     $srs ="delete table user_class";
+            // $conn->query("drop table user_Class");
 
-    
+        // $data = 'insert into user_class(class_name,section) values("class 1","A"),
+        //     ("class 2","A"),
+        //     ("class 3","A"),
+        //     ("class 4","B")
+        // ';
 
-    // $data = 'insert into user_class(class_name,section) values("class 1","A"),
-    //     ("class 2","A"),
-    //     ("class 3","A"),
-    //     ("class 4","B")
-    // ';
-
-    // $conn->query($data);
+        // $conn->query($data);
 
 //FOR USER-SECTION============================================================
 $section_table = "create table if not exists user_section(

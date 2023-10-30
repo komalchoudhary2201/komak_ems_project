@@ -6,7 +6,7 @@
 
     try{
         $conn = new mysqli(host , user , password , database);
-            
+        $conn2 = mysqli_connect(host, user, password, database);
             
         
             // echo"chal rha h";
