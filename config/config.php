@@ -1,4 +1,4 @@
-<?php
+ <?php
     define("host","localhost");
     define("user","root");
     define("password","");
@@ -15,5 +15,5 @@
                 die("<br>connection failed");
     }
 
-    include_once("table.php");
+    include_once("table.php"); 
 ?>

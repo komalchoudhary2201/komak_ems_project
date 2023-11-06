@@ -1,5 +1,5 @@
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar d-none">
+  <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -130,6 +130,11 @@
           <li>
             <a href="class.php">
               <i class="bi bi-circle"></i><span>class</span>
+            </a>
+          </li>
+          <li>
+            <a href="courses.php ">
+              <i class="bi bi-circle"></i><span>courses</span>
             </a>
           </li>
         </ul>
