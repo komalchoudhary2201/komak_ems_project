@@ -20,7 +20,7 @@
       }
   }
 
-    $res = false;
+  
     if(isset($_POST["add-class"])){
       $class = $_POST["class-name"];
       $section = $_POST["section-name"];
