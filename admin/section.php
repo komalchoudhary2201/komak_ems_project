@@ -5,7 +5,23 @@
 
   <!-- ======= Sidebar ======= -->
 <?php include_once("includes/side_bar.php");?>  
-  <main id="main" class="main">
+<?php
+  if(isset($_GET["del-section"])){
+    $section_id = $_GET["del-section"];
+    
+    try{
+      $del_section = "delete from user_section where id=$section_id";
+      $del_res = $conn->query($del_section);
+
+      $msg["del_success"]=true;
+    }catch(Exception $e){
+      print_r($e->getMessage());
+      die();
+    }
+}
+?>
+
+<main id="main" class="main">
 
     <div class="pagetitle">
       <h1>users</h1>
@@ -25,7 +41,9 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">section list</h5>
+              <?= isset($msg["del-success"])? "data deleted": "" ; ?>
               
+            
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
@@ -49,7 +67,9 @@
                             <td><?= $row["section"];?></td>
                             <td><?= $row["date"];?></td>
                             <td><?= $row["date"];?></td>
-                            <td>edit/del</td>
+                            <td>edit/
+                                <a href="section.php?del-section=<?= $row["id"] ?>">del</a>    
+                            </td>
                           </tr>
                         <?php 
                         }
@@ -65,29 +85,33 @@
         </div>
         <div class="col-lg-3">
           <?php
-            $res = false;
             if(isset($_POST["add-section"])){
-              $section_name = $_POST["section"];
+              $section = $_POST["section"];
+              $add_section = "insert into user_section(section) values('$section')";
+              $msg["error"] = [];
              
-              try{
-                $qrys = "insert into user_section('section') values('$section_name')";
-                echo $qrys;
-                $ress = $conn->query($qrys);
-                echo "chal gaya";
-                print_r($ress);
-                echo "Hi";
-               
-              }catch(Exception $e){
-                // $ress = $e->getCode();
-                print_r($e);
-                echo "exception";
-                
-              }
+               if($section == ""){
+                 $msg["error"]["section"] =true;
+               }
             }
           ?>
             <div class="card-body">
               <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Add Section</h5>
+                  <?php 
+                      if(isset($msg["error"]["section"]) && $msg["error"]["section"] == false){
+                        echo "record not found";
+                      }else if(isset($msg["del_success"])){
+                        echo "data deleted";
+                      }
+              ?>    
+                  <?php
+                  //   if($msg["error"]["section"] == 1){
+                  //     echo"section add hoyi gawa";
+                  //   }else if($msg["error"]["section"] == 1064){
+                  //       echo"duplicate h bhaiya";
+                  //   }
+                  // ?>
                     <form class="row g-3 needs-validation" novalidate method="post">
                       <div class="col-12  mt-5">
                           <input type="text" name="section" class="form-control" required>

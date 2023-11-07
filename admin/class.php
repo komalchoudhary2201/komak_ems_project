@@ -18,8 +18,13 @@
         die();
       }
   }
+<<<<<<< HEAD
   
     $res = false;
+=======
+
+  
+>>>>>>> b199a0b644d1d7cf1e431084b6ba21e7fe6a8f12
     if(isset($_POST["add-class"])){
       $section = $_POST["section-name"];
       $class = $_POST["class-name"];
