@@ -2,7 +2,6 @@
   include_once("includes/header.php");
 ?>
 
-
   <!-- ======= Sidebar ======= -->
 <?php include_once("includes/side_bar.php"); ?>  
 <?php 
@@ -19,11 +18,15 @@
         die();
       }
   }
-
+  
     $res = false;
     if(isset($_POST["add-class"])){
-      $class = $_POST["class-name"];
       $section = $_POST["section-name"];
+      $class = $_POST["class-name"];
+      
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+      
+      // $section = "" ;
       $msg["error"] = [];
       
       if($class == ""){
@@ -34,16 +37,27 @@
         $msg["error"]["section-name"] =true;
       }
  
-      
+      if(count($msg["error"]) <=0){
+        $add_class_qry = "insert into user_class(class_name,section) values('$class','$section')";
+        try{
+          $res = $conn->query($add_class_qry);
+          unset($section);
+          unset($class);
+        }catch(Exception $e){
+          $res = $e->getcode();
+        }
+      }
           // print_r($response->getCode());
       
-      // if(count($msg["error"]) < 0){
-        $add_class_qry = "insert into user_class(class_name,section) values('$class','$section')";
-        $response = $conn->query($add_class_qry);
+
+      
+          // if(count($msg["error"]) < 0){
+        // $add_class_qry = "insert into user_class(class_name,section) values('$class','$section')";
+        // $response = $conn->query($add_class_qry);
         // echo $conn->errno;
-        if($response){
-          $msg["class_added"] = true;
-        }else{
+        // if($response){
+          // $msg["class_added"] = true;
+        // }else{
           // echo "not ok";
           // echo $conn->error;
           // echo $conn->connect_error;
@@ -55,11 +69,11 @@
           // echo "</pre>";
           // echo $conn->errno;
           // echo $conn->errno;
-          $msg["error"] = $conn->errno;
+          // $msg["error"] = $conn->errno;
           // echo "<pre>";
           // print_r($conn);
           // echo "</pre>";
-        }
+        // }
       }
     // }  
     
@@ -183,7 +197,7 @@
   <div>
 </section>
 
-</main><!-- End #main -->
+</main><!-- End #main -->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 
   <!-- ======= Footer ======= -->
  <?php include_once("includes/footer.php"); ?>
