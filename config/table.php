@@ -27,7 +27,7 @@
         date timestamp default now()
     )";
     $conn->query($class_table);
-    //     $srs ="delete table user_class";
+        // $srs ="delete table user_class";
             // $conn->query("drop table user_Class");
 
         // $data = 'insert into user_class(class_name,section) values("class 1","A"),

@@ -1,5 +1,5 @@
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar d-none">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
