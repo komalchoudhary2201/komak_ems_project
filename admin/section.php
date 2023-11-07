@@ -1,24 +1,23 @@
 <?php
   include_once("includes/header.php");
 ?>
-
-
-  <!-- ======= Sidebar ======= -->
+<!-- ======= Sidebar ======= -->
 <?php include_once("includes/side_bar.php");?>  
+
 <?php
+//for data delete
   if(isset($_GET["del-section"])){
     $section_id = $_GET["del-section"];
     
     try{
       $del_section = "delete from user_section where id=$section_id";
       $del_res = $conn->query($del_section);
-
-      $msg["del_success"]=true;
+        $msg["del_success"] = true;
     }catch(Exception $e){
       print_r($e->getMessage());
       die();
     }
-}
+  }
 ?>
 
 <main id="main" class="main">
@@ -41,7 +40,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">section list</h5>
-              <?= isset($msg["del-success"])? "data deleted": "" ; ?>
+                <?= isset($msg["del-success"])? "data deleted": "" ; ?>
               
             
               <!-- Table with stripped rows -->
@@ -85,25 +84,33 @@
         </div>
         <div class="col-lg-3">
           <?php
+            $res = false;         
             if(isset($_POST["add-section"])){
               $section = $_POST["section"];
               $add_section = "insert into user_section(section) values('$section')";
               $msg["error"] = [];
              
-               if($section == ""){
-                 $msg["error"]["section"] =true;
-               }
+              //  if($section == ""){
+                //  $msg["error"]["section"] =true;
+              //  }
+                try{
+                  $res = $conn->query($add_section);
+                  unset($_POST["add-section"]);
+                }catch(Exception $e){
+                   $res = $e->getcode(); 
+                }
+
             }
           ?>
             <div class="card-body">
               <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Add Section</h5>
                   <?php 
-                      if(isset($msg["error"]["section"]) && $msg["error"]["section"] == false){
-                        echo "record not found";
-                      }else if(isset($msg["del_success"])){
-                        echo "data deleted";
-                      }
+                      // if(isset($msg["error"]["section"]) && $msg["error"]["section"] == false){
+                      //   echo "record not found";
+                      // }else if(isset($msg["del_success"])){
+                      //   echo "data deleted";
+                      // }
               ?>    
                   <?php
                   //   if($msg["error"]["section"] == 1){
