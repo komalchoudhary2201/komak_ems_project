@@ -5,7 +5,7 @@
 <?php include_once("includes/side_bar.php");?>  
 
 <?php
-//for data delete
+//for section delete ===============================================================================
   if(isset($_GET["del-section"])){
     $section_id = $_GET["del-section"];
     
@@ -56,6 +56,7 @@
                 </thead>
                 <tbody>
                   <?php
+                  //for showing sections in table ==========================================================
                     $user_SECTION= "select * from user_section";
                       $res = $conn->query($user_SECTION);
                       if($res->num_rows >= 1){
@@ -84,22 +85,23 @@
         </div>
         <div class="col-lg-3">
           <?php
+          // for add section =======================================================
             $res = false;         
             if(isset($_POST["add-section"])){
               $section = $_POST["section"];
               $add_section = "insert into user_section(section) values('$section')";
               $msg["error"] = [];
              
-              //  if($section == ""){
-                //  $msg["error"]["section"] =true;
-              //  }
+                if($section == ""){
+                  $msg["error"]["section"] =true;
+                }
+                
                 try{
                   $res = $conn->query($add_section);
                   unset($_POST["add-section"]);
                 }catch(Exception $e){
                    $res = $e->getcode(); 
-                }
-
+                  }
             }
           ?>
             <div class="card-body">
@@ -111,15 +113,8 @@
                       // }else if(isset($msg["del_success"])){
                       //   echo "data deleted";
                       // }
-              ?>    
-                  <?php
-                  //   if($msg["error"]["section"] == 1){
-                  //     echo"section add hoyi gawa";
-                  //   }else if($msg["error"]["section"] == 1064){
-                  //       echo"duplicate h bhaiya";
-                  //   }
-                  // ?>
-                    <form class="row g-3 needs-validation" novalidate method="post">
+                  ?>    
+                  <form class="row g-3 needs-validation" novalidate method="post">
                       <div class="col-12  mt-5">
                           <input type="text" name="section" class="form-control" required>
                       </div>
