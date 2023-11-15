@@ -19,7 +19,26 @@
     }
   }
 ?>
-
+<?php
+  // for add section =======================================================
+    $res = false;         
+      if(isset($_POST["add-section"])){
+              $section = $_POST["section"];
+              $add_section = "insert into user_section(section) values('$section')";
+              $msg["error"] = [];
+             
+                if($section == ""){
+                  $msg["error"]["section"] =true;
+                }
+                
+                try{
+                  $res = $conn->query($add_section);
+                  unset($_POST["add-section"]);
+                }catch(Exception $e){
+                   $res = $e->getcode(); 
+                  }
+            }
+  ?>
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -84,26 +103,6 @@
           </div>
         </div>
         <div class="col-lg-3">
-          <?php
-          // for add section =======================================================
-            $res = false;         
-            if(isset($_POST["add-section"])){
-              $section = $_POST["section"];
-              $add_section = "insert into user_section(section) values('$section')";
-              $msg["error"] = [];
-             
-                if($section == ""){
-                  $msg["error"]["section"] =true;
-                }
-                
-                try{
-                  $res = $conn->query($add_section);
-                  unset($_POST["add-section"]);
-                }catch(Exception $e){
-                   $res = $e->getcode(); 
-                  }
-            }
-          ?>
             <div class="card-body">
               <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Add Section</h5>
