@@ -1,18 +1,15 @@
-<?php
-  include_once("includes/header.php");
-?>
-
-
+<?php include_once("includes/header.php"); ?>
   <!-- ======= Sidebar ======= -->
 <?php include_once("includes/side_bar.php"); ?>  
-<main id="main" class="main">
+
+  <main id="main" class="main">
 <div class="pagetitle">
   <h1>course</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">class</a></li>
         <li class="breadcrumb-item"><a href="courses.php">course</a></li>
-        <li class="breadcrumb-item active"><?= isset($_GET["user_class"])? $_GET["user_Class"]:"all courses" ?></li>
+        <li class="breadcrumb-item active"><?= isset($_GET["user_courses"])? $_GET["user_courses"]:"all courses" ?></li>
       </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -21,49 +18,60 @@
     <div class="col-lg-9">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">class list</h5>
-                <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th>id</th>
-                    <th>course name </th>
-                    <th>course duration </th>
-                    <th>category </th>
-                    <th>thumnail </th>
-                    <th>create_at</th>
-                    <th>update_at</th>
-                    <th>action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
-                <!-- End Table with stripped rows -->
-            </div>
-          </div>
+          <h5 class="card-title">course list</h5>
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>course name </th>
+                  <th>course duration </th>
+                  <th>category </th>
+                  <th>thumnail </th>
+                  <th>create_at</th>
+                  <th>update_at</th>
+                  <th>action</th>
+                <tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+              <!-- End Table with stripped rows -->
         </div>
-        <div class="col-3">
-          <div class="card-body">
-            <div class="pt-4 pb-2">
-              <h5 class="card-title text-center pb-0 mb-3 fs-4">Add classs</h5>
-                
-                <form class="row g-3 needs-validation" novalidate method="post">
-                  <div class="col-12  mt-5">
-                    <input type="text" name="class-name" class="form-control">
-                      <!-- <small class="text-danger"> class required </small> -->
-                  </div>
-
-
-                  <div class="col-12">
-                      <button name="add-class" class="btn btn-sm btn-primary w-100" type="submit">Add</button>
-                  </div>
-                </form>
-            </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card">
+          <div class="card-header">
+              <h3 class="card-title">add courses</h3>
           </div>
-        </div>
-  <div>
+          <form method="post">
+            <div class="card-body">
+              <div class="form-group">
+                <label class="font-weight-normal">course names</label>
+                  <input type="text" class="form-control" placeholder="course name" name="course_name">
+              </div>
+        
+              <div class="form-group mt-3">
+                <label class="font-weight-normal">course duration</label>
+                  <input type="text" class="form-control" placeholder="course duration">
+              </div>
+
+              <div class="form-group mt-3">
+                <label class="font-weight-normal">course category</label>
+                  <input type="text" class="form-control" placeholder="course catagory">
+              </div>
+            
+              <div class="form-group mt-3">
+                <label class="font-weight-normal">course thumnail</label>
+                  <input type="text" class="form-control" placeholder="course thumnail">
+              </div>
+            </div>
+              <button type="submit" name="add-course" class="btn btn-primary my-3 mx-4">add courses</button>
+          </form>
+      </div>
+    </div>  
+<div>
 </section>
 
 </main><!-- End #main -->

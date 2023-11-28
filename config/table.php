@@ -39,34 +39,47 @@
         // $conn->query($data);
 
 //FOR USER-SECTION============================================================
-$section_table = "create table if not exists user_section(
-    id int primary key auto_increment,vwqnbv 
-    section varchar(10) unique not null,
-    date timestamp default now()
-)";
+// $section_table = "create table if not exists user_section(
+//     id int primary key auto_increment, 
+//     section varchar(10) unique not null,
+//     date timestamp default now()
+// )";
 
-$conn->query($section_table);
+// $conn->query($section_table);
 
-// wn
+//CLASS_SECTION TABLE
+    $clasection ="create table if not exists class_Section(
+        id int primary key auto_increment,
+        cls_id int not null,
+        sec_id int not null,
+        foreign key(cls_id) reference user_class(id) on delete cascade, 
+        foreign key(sec_id) reference user_section(id) on delete cascade 
+    )engine==InnoDB";                               
+    $conn->query($clasection);
+
+
+
 
 
 //FOR COURSES================================================================
-$course_table = "create table if not exists user_courses(
-   int id primary key auto_increment,
-   course_name varchar(30) unique not null,
-   course_duration varchar(50),
-   category varchar(50),
-   thumnail varchar(255),
-   created_at timestamp default now(),
-   updated_at timestamp default now() 
-)";
+// $course_table = "create table if not exists user_courses(
+//    int id primary key auto_increment,
+//    course_name varchar(30) unique not null,
+//    course_duration varchar(50),
+//    category varchar(50),
+//    thumnail varchar(255),
+//    created_at timestamp default now(),
+//    updated_at timestamp default now() 
+// )";
 
-$data = 'insert into user_courses(course_name,course_duration,category,thumnail) values
-            ("web design","12 month","web design","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
-            ("gst","5 month","tally","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
-            ("python","3 month","programming","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
-            ("c++","4 month","language","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
-            ';
-$conn->query($course_table);
-$conn->query($data);
+// $data = 'insert into user_courses(course_name,course_duration,category,thumnail) values
+//             ("web design","12 month","web design","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
+//             ("gst","5 month","tally","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
+//             ("python","3 month","programming","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
+//             ("c++","4 month","language","C:\wamp64\www\komal_ems_project\admin\assets\img\messages-2.jpg"),
+//             ';
+// $conn->query($course_table);
+// $conn->query($data);
+
+
 ?>
