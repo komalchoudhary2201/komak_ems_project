@@ -16,4 +16,5 @@
     }
 
     include_once("table.php"); 
+    include_once("functions.php"); 
 ?>

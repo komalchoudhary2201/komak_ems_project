@@ -9,73 +9,47 @@ if (isset($_GET["del-class"])) {
   $class_id = $_GET["del-class"];
 
   try {
-    $del_class = "delete from user_class where id=$class_id";
+    $del_class = "delete from user_class where id=$id";
     $del_res = $conn->query($del_class);
 
     $msg["del_success"] = true;
   } catch (Exception $e) {
     print_r($e->getMessage());
-    die();
+    // die();
   }
 }
 
 //for add class=================================================================
-$res = false;
+// $res = false;
 if (isset($_POST["add-class"])) {
 
   $class = $_POST["class-name"];
-
-  if (isset($_POST["section-name"])) {
-    $section = $_POST["section-name"];
-    echo $section;
-  } else {
-    $section = "";
-  }
-
-
-  $msg["error"] = [];
-
-  if ($class == "") {
-    $msg["error"]["class-name"] = "Class name required";
-  }
-
-  if ($section == "") {
-    $msg["error"]["section-name"] = "Section Requireds";
-  }
-
-
-  if (count($msg["error"]) <= 0) {
-    $add_class_qry = "insert into user_class(class_name,section) values('$class','$section')";
-    try {
-      $class_res = $conn->query($add_class_qry);
-      echo $class_res;
-      if ($class_res) {
-        $msg["success"]["class_added"] = "Class added";
-        unset($section);
-        unset($class);
-      } else {
-        if ($conn->errno == 1062) {
-          $msg["error"]["duplicate"] = "duplicate class name";
-        }
-      }
-      
-
-    } catch (Exception $e) {
-      echo "exception";
-      $res = $e->getcode();
-      echo $res;
-      echo "exception";
-      die;
+  $cls_qry = "insert into $user_class(class_name) values('$class_name')";
+    try{
+      $msg["res"] = $conn->query($cls_qry);
+    }catch(Exception $e){
+      $msg["res"] = $e->getcode();
     }
-  } else {
-    echo "error found";
-    // die;
-  }
-
-  // echo $conn->errno;
-  // $msg["error"] = $conn->errno;
 }
 
+if(isset($_POST["add-class_section"])){
+  $cls_id = $_POST["cls_id"];
+  $sec_id = $_POST["sec_id"];
+
+  try{
+    $cls_sec_exists = "select * from $class_section where cls_id=$cls_id and sec_id=$sec_id";
+    $msg["res"] = $exists_res = $conn->query($cls_sec_exists);
+      if($exists_res->num_rows >=1){
+        $msg["rec_exists"] = "this is already exists";
+      }else{
+        $class_sec = "insert into $class_Section(cls_id,sec_id) values($cls_id,$sec_id)";
+        $msg["cls_sec_res"] = $conn->query($class_sec);
+      }
+  }catch(Exception $e){
+      print_r($e->getMessage());
+      $msg["add_cls_sec_error_code"] = $e->getCode();
+  }
+}
 ?>
 
 <main id="main" class="main">
@@ -94,7 +68,7 @@ if (isset($_POST["add-class"])) {
     <div class="row">
       <div class="col-lg-9">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body"> 
             <h5 class="card-title">class list</h5>
             <?= isset($msg["del-success"]) ? "data deleted" : ""; ?>
             <?php
@@ -116,28 +90,28 @@ if (isset($_POST["add-class"])) {
                   <th>action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody>  
                 <?php
                 //for data insert in table=======================================================
-                $user_CLASS = "select * from user_class";
-                $ress = $conn->query($user_CLASS);
-                if ($ress->num_rows >= 1) {
-                  $sr = 1;
-                  while ($row = $ress->fetch_assoc()) { ?>
-                    <tr>
-                      <th><?= $sr++; ?></th>
-                      <td><?= $row["class_name"]; ?></td>
-                      <td><?= $row["section"]; ?></td>
-                      <td><?= $row["date"]; ?></td>
-                      <td><?= $row["date"]; ?></td>
-                      <td>edit/
-                        <a href="class.php?del-class=<?= $row["id"] ?>">del</a>
-                      </td>
-                    </tr>
-                <?php
+                $class_sec = all_rec_more1_tbl($user_class ,"id",$class_section,"id",$user_section,"id");
+                  if($class_sec){
+                      $sr = 1;
+                      $i = 0;
+
+                      while($row = $class_sec->fetch_assoc()){?>
+                          <tr>
+                            <td><?= $r++ ?></td>
+                            <td><?= $row["class_name"]?></td>
+                            <td><?= $row["section"]?></td>
+                            <td>edit / 
+                                <a href="class.php?del-class=<?= $row["id"] ?>">del</a>
+                            </td>
+                          </tr>
+                      <?php $i++; 
+                      }
                   }
-                }
-                ?>
+                
+              ?>
               </tbody>
             </table>
             <!-- End Table with stripped rows -->
@@ -149,48 +123,43 @@ if (isset($_POST["add-class"])) {
         <div class="card-body">
           <div class="pt-4 pb-2">
             <h5 class="card-title text-center pb-0 fs-4">Add class</h5>
-            <?php
-            //for showing massage===============================================
-            if (isset($msg["success"]["class_added"])) { ?>
-              <span class="text-success"><?= $msg["success"]["class_added"] ?></span>
-            <?php } else if (isset($msg["error"]["duplicate"])) { ?>
-              <span style="color:orange"><?= $msg["error"]["duplicate"] ?></span>
-            <?php } else if (isset($msg["error"]) && $msg["error"] == 1054) { ?>
-              <span class="text-danger">something went wrong</span>
-            <?php }
-            ?>
+                <?php
+                    //for showing massage===============================================
+                        if (isset($msg["success"]["class_added"])) { ?>
+                          <span class="text-success"><?= $msg["success"]["class_added"] ?></span>
+                        <?php } else if (isset($msg["error"]["duplicate"])) { ?>
+                          <span style="color:orange"><?= $msg["error"]["duplicate"] ?></span>
+                        <?php } else if (isset($msg["error"]) && $msg["error"] == 1054) { ?>
+                          <span class="text-danger">something went wrong</span>
+                        <?php }
+                ?>
             <form class="row g-3 needs-validation" novalidate method="post">
               <div class="col-12  mt-5">
-                <input type="text" name="class-name" class="form-control">
-                
-                <?php
-                if (isset($msg["error"]["class-name"])) { ?>
-                  <small><?= $msg["error"]["class-name"] ?></small>
-                <?php }
-                ?>
-                <?php
-                // for showing all sections in add-class===================================                          
-                $total_section = "select * from user_section";
-                $res = $conn->query($total_section);
-                if ($res->num_rows >= 1) {
-                  $sr = 1;
-                  while ($row = $res->fetch_assoc()) { ?>
-                    <input type="checkbox" id="section_id<?= $row["id"] ?>" name="section-name" value="<?= $row["id"] ?>">
-                    <label for="section_id<?= $row["id"] ?>"><?= $row["section"] ?></label><br>
-                <?php }
-                }
-                ?>
-                <?php
-                if (isset($msg["error"]["section-name"])) { ?>
-                  <small> <?= $msg["error"]["section-name"] ?> </small>
-                <?php }
-                ?>
+                <input type="text" name="class-name" class="form-control" placeholder="class" value="<?= isset($class) ? $class : "" ?>">
+                  <?php
+                    if (isset($msg["error"]["class-name"])) { ?>
+                      <small><?= $msg["error"]["class-name"] ?></small>
+                    <?php } ?>
               </div>
-              <div class="col-12">
-                <button name="add-class" class="btn btn-sm btn-primary w-100" type="submit">Add</button>
+              <div class="card-footer">
+                <button name="add-class" class="btn btn-sm btn-primary w-100" type="submit">Add class</button>
               </div>
             </form>
-
+          </div>
+              
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">new class</h3>
+                  <?php
+                    //for showing massage===============================================
+                        if (@$msg["cls_sec_res"] == "1")) { ?>
+                          <span class="text-success">class added</span>
+                        <?php }else if(@$msg["rec_exists"]) { ?>
+                          <span style="color:orange"><?= $msg["rec_exists"] ?></span>
+                        <?php }else if(@$msg["add_cls_sec_error_code"]) == 1054) { ?>
+                          <span class="text-danger">something went wrong</span>
+                        <?php } ?>
+              </div>
           </div>
         </div>
       </div>

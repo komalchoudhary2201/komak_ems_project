@@ -8,7 +8,7 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">class</a></li>
-        <li class="breadcrumb-item"><a href="courses.php">course</a></li>
+        <li class="breadcrumb-item"><a href="courses.php">courses</a></li>
         <li class="breadcrumb-item active"><?= isset($_GET["user_courses"])? $_GET["user_courses"]:"all courses" ?></li>
       </ol>
     </nav>
