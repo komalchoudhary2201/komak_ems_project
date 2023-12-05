@@ -152,14 +152,34 @@ if(isset($_POST["add-class_section"])){
                   <h3 class="card-title">new class</h3>
                   <?php
                     //for showing massage===============================================
-                        if (@$msg["cls_sec_res"] == "1")) { ?>
+                        if (@$msg["cls_sec_res"] == "1") { ?>
                           <span class="text-success">class added</span>
                         <?php }else if(@$msg["rec_exists"]) { ?>
                           <span style="color:orange"><?= $msg["rec_exists"] ?></span>
-                        <?php }else if(@$msg["add_cls_sec_error_code"]) == 1054) { ?>
+                        <?php }else if(@$msg["add_cls_sec_error_code"] = 1054) { ?>
                           <span class="text-danger">something went wrong</span>
                         <?php } ?>
               </div>
+                    <form method="post">
+                          <div class="card-header">
+                            <select class="form-control form-control-sm mt-3" name="cls_id">
+                                <?php 
+                                    $data = all_records($user_class);
+                                      while($row=$data->fetch_assoc()){ ?>
+                                          <option value="<?= $row["id"] ?>"><?= $row["class_name"] ?></option>
+                                      <?php }
+                                ?>
+                            </select>
+                            <?php
+                              if(@$msg["error"]["class"]){ ?>
+                                <small class="text-danger">class required</small>
+                              <?php }
+                            ?>
+                            <select class="form-control form-control-sm mt-3" name="sec_id"></select>
+                          </div>
+                          <div class="card-footer"></div>
+                    </form>
+
           </div>
         </div>
       </div>
