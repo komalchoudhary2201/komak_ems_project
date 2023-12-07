@@ -93,25 +93,41 @@ if(isset($_POST["add-class_section"])){
               <tbody>  
                 <?php
                 //for data insert in table=======================================================
-                $class_sec = all_rec_more1_tbl($user_class ,"id",$class_section,"id",$user_section,"id");
-                  if($class_sec){
-                      $sr = 1;
-                      $i = 0;
-
-                      while($row = $class_sec->fetch_assoc()){?>
-                          <tr>
-                            <td><?= $r++ ?></td>
-                            <td><?= $row["class_name"]?></td>
-                            <td><?= $row["section"]?></td>
-                            <td>edit / 
-                                <a href="class.php?del-class=<?= $row["id"] ?>">del</a>
-                            </td>
-                          </tr>
-                      <?php $i++; 
-                      }
-                  }
-                
-              ?>
+                $class_sec = "SELECT user_class.id , user_class.class_name , user_section.section 
+                                from user_class 
+                                INNER JOIN class_section ON user_class.id = class_section.class_id
+                                INNER JOIN class_section ON class_section.section_id = user_section.id
+                              ";
+                              $result = $conn->query($class_sec);
+                              if($result){
+                                echo"chl rhah";
+                              }else{
+                                echo"nhi chl rha";
+                              }
+                                  // print_r($conn->query($class_sec));
+                                  
+                                    // if($result->num_rows > 0){
+                                    //    echo "hello";
+                                    // }else{
+                                    //   echo"hy";
+                                    // }
+                      // if($class_sec){
+                      //   $sr=1;
+                      //   $i=0;
+                      //   while($row = $result->fetch_assoc()){?>
+                      <!-- //     <tr> -->
+                      <!-- //       <td><?= $sr++ ?></td> -->
+                      <!-- //       <td><?= $row["class_name"] ?></td> -->
+                      <!-- //       <td><?= $row["section"] ?></td> -->
+                      <!-- //       <td>edit /  -->
+                      <!-- //           <a href="class.php?del-class=<?= $row["id"] ?>">del</a> -->
+                      <!-- //       </td> -->
+                      <!-- //     </tr> -->
+                           <?php 
+                      //       $i++; 
+                      //   }
+                      // }
+                      //     ?>  
               </tbody>
             </table>
             <!-- End Table with stripped rows -->
@@ -164,10 +180,11 @@ if(isset($_POST["add-class_section"])){
                           <div class="card-header">
                             <select class="form-control form-control-sm mt-3" name="cls_id">
                                 <?php 
-                                    $data = all_records($user_class);
-                                      while($row=$data->fetch_assoc()){ ?>
-                                          <option value="<?= $row["id"] ?>"><?= $row["class_name"] ?></option>
-                                      <?php }
+                                    // $data = all_records($user_class);
+                                    //   while($row = $data->fetch_assoc()){ ?>
+                                    //       <option value="<?= $row["id"] ?>"><?= $row["class_name"] ?></option>
+                                    //   <?php 
+                                    // }
                                 ?>
                             </select>
                             <?php
@@ -175,9 +192,18 @@ if(isset($_POST["add-class_section"])){
                                 <small class="text-danger">class required</small>
                               <?php }
                             ?>
-                            <select class="form-control form-control-sm mt-3" name="sec_id"></select>
+                            <select class="form-control form-control-sm mt-3" name="sec_id">
+                                <?php 
+                                    $data = all_records($user_section);
+                                      while($row = $data->fetch_assoc()){ ?>
+                                          <option value="<?= $row["id"] ?>"><?= $row["section"] ?></option>
+                                      <?php }
+                                ?>
+                            </select>
                           </div>
-                          <div class="card-footer"></div>
+                          <div class="card-footer">
+                            <button type="submit" name="add_class_Section" class="btn btn-sm btn-primary">section assign</button>
+                          </div>
                     </form>
 
           </div>

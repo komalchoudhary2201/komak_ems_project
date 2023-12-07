@@ -107,11 +107,11 @@
               <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Add Section</h5>
                   <?php 
-                      // if(isset($msg["error"]["section"]) && $msg["error"]["section"] == false){
-                      //   echo "record not found";
-                      // }else if(isset($msg["del_success"])){
-                      //   echo "data deleted";
-                      // }
+                      if(isset($msg["error"]["section"]) && $msg["error"]["section"] == false){
+                        echo "record not found";
+                      }else if(isset($msg["del_success"])){
+                        echo "data deleted";
+                      }
                   ?>    
                   <form class="row g-3 needs-validation" novalidate method="post">
                       <div class="col-12  mt-5">

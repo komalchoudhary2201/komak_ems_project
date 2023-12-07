@@ -39,16 +39,16 @@
         // $conn->query($data);
 
 //FOR USER-SECTION============================================================
-// $section_table = "create table if not exists user_section(
-//     id int primary key auto_increment, 
-//     section varchar(10) unique not null,
-//     date timestamp default now()
-// )";
+$section_table = "create table if not exists user_section(
+    id int primary key auto_increment, 
+    section varchar(10) unique not null,
+    date timestamp default now()
+)";
 
-// $conn->query($section_table);
+$conn->query($section_table);
 
 //CLASS_SECTION TABLE
-    $clasection ="create table if not exists class_Section(
+    $class_ection ="create table if not exists class_Section(
         id int primary key auto_increment,
         cls_id int not null,
         sec_id int not null,
@@ -56,10 +56,6 @@
         foreign key(sec_id) reference user_section(id) on delete cascade 
     )engine==InnoDB";                               
     $conn->query($clasection);
-
-
-
-
 
 //FOR COURSES================================================================
 // $course_table = "create table if not exists user_courses(

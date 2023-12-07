@@ -24,7 +24,7 @@
             $qry = "SELECT user_class.id , user_class.class_name , user_section.section 
                     from user_class 
                     INNER JOIN class_section ON class.id = class_section.cls_id
-                    INNER JOIN section ON class_section.sec_id =section.id
+                    INNER JOIN section ON class_section.sec_id = section.id
                 ";
                 $result = $conn->query($qry);
 
