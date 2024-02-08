@@ -48,7 +48,7 @@ $section_table = "create table if not exists user_section(
 $conn->query($section_table);
 
 //CLASS_SECTION TABLE
-    $class_ection ="create table if not exists class_Section(
+    $clasection ="create table if not exists class_Section(
         id int primary key auto_increment,
         cls_id int not null,
         sec_id int not null,
